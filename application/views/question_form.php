@@ -29,20 +29,24 @@
     </form>
     <script>
         CKEDITOR.replace('question', {
-            extraPlugins: 'mathjax',
+            extraPlugins: 'mathjax,image2,clipboard',
             mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
             height: 150,
             toolbar: [
-                ['Bold', 'Italic', 'Underline', '-', 'Mathjax', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
-            ]
+                ['Bold', 'Italic', 'Underline', '-', 'Mathjax', 'Image', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
+            ],
+            filebrowserUploadUrl: '/uploader/upload.php', // You need to implement this endpoint for real uploads
+            filebrowserUploadMethod: 'form'
         });
         CKEDITOR.replace('answer', {
-            extraPlugins: 'mathjax',
+            extraPlugins: 'mathjax,image2,clipboard',
             mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
             height: 150,
             toolbar: [
-                ['Bold', 'Italic', 'Underline', '-', 'Mathjax', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
-            ]
+                ['Bold', 'Italic', 'Underline', '-', 'Mathjax', 'Image', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
+            ],
+            filebrowserUploadUrl: '/uploader/upload.php', // You need to implement this endpoint for real uploads
+            filebrowserUploadMethod: 'form'
         });
         function openMathJaxDialog(editorId) {
             var editor = CKEDITOR.instances[editorId];
