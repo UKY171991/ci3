@@ -8,10 +8,18 @@
 </head>
 <body>
     <h2><?php echo isset($question) ? 'Edit' : 'Add'; ?> Question</h2>
-    <p style="color:#007bff;font-size:14px;margin-bottom:10px;">
-        To add math formulas, use the MathJax (∑) button in the editor and enter LaTeX code, e.g., <code>E = mc^2</code>. <br>
-        <b>Do not paste formulas as images from Word or other sources.</b>
-    </p>
+    <div style="color:#007bff;font-size:14px;margin-bottom:10px;">
+        <b>How to add math formulas:</b><br>
+        1. Click the <b>MathJax (∑)</b> button in the editor toolbar.<br>
+        2. Enter your formula in LaTeX, e.g. <code>\sqrt{2}</code> for √2.<br>
+        3. For multiple options, use:<br>
+        <pre style="background:#f4f6f8;padding:8px;border-radius:6px;">(1)\ 3\\sqrt{2} \\
+(2)\ 7\\sqrt{2} \\
+(3)\ \sqrt{2} \\
+(4)\ 5\\sqrt{2}</pre>
+        <button type="button" onclick="insertLatexTemplate()" style="margin-top:5px;padding:4px 10px;border-radius:4px;border:1px solid #007bff;background:#eaf4ff;color:#007bff;cursor:pointer;">Insert Option Template</button>
+        <br><b>Do not paste formulas as images from Word or PDF. Always use the MathJax button and LaTeX code.</b>
+    </div>
     <form method="post">
         <label>Question:</label><br>
         <textarea name="question" id="question" required><?php echo isset($question) ? htmlspecialchars($question->question) : ''; ?></textarea><br>
@@ -37,6 +45,19 @@
                 ['Bold', 'Italic', 'Underline', '-', 'Mathjax', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
             ]
         });
+        function insertLatexTemplate() {
+            var template = '(1)\\ 3\\sqrt{2} \\\\\
+(2)\\ 7\\sqrt{2} \\\\\
+(3)\\ \\sqrt{2} \\\\\
+(4)\\ 5\\sqrt{2}';
+            if (CKEDITOR.instances['question'].focusManager.hasFocus) {
+                CKEDITOR.instances['question'].insertText(template);
+            } else if (CKEDITOR.instances['answer'].focusManager.hasFocus) {
+                CKEDITOR.instances['answer'].insertText(template);
+            } else {
+                CKEDITOR.instances['question'].insertText(template);
+            }
+        }
     </script>
 </body>
 </html>
