@@ -8,6 +8,10 @@
 </head>
 <body>
     <h2><?php echo isset($question) ? 'Edit' : 'Add'; ?> Question</h2>
+    <p style="color:#007bff;font-size:14px;margin-bottom:10px;">
+        To add math formulas, use the MathJax (∑) button in the editor and enter LaTeX code, e.g., <code>E = mc^2</code>. <br>
+        <b>Do not paste formulas as images from Word or other sources.</b>
+    </p>
     <form method="post">
         <label>Question:</label><br>
         <textarea name="question" id="question" required><?php echo isset($question) ? htmlspecialchars($question->question) : ''; ?></textarea><br>
@@ -20,12 +24,18 @@
         CKEDITOR.replace('question', {
             extraPlugins: 'mathjax',
             mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
-            height: 150
+            height: 150,
+            toolbar: [
+                ['Bold', 'Italic', 'Underline', '-', 'Mathjax', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
+            ]
         });
         CKEDITOR.replace('answer', {
             extraPlugins: 'mathjax',
             mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
-            height: 150
+            height: 150,
+            toolbar: [
+                ['Bold', 'Italic', 'Underline', '-', 'Mathjax', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
+            ]
         });
     </script>
 </body>
