@@ -11,10 +11,10 @@
     <div style="color:#007bff;font-size:14px;margin-bottom:10px;">
         <b>How to add math formulas from Word:</b><br>
         1. <b>Copy your formula from Word.</b><br>
-        2. <b>Go to <a href='https://www.latex4technics.com/mathml-to-latex' target='_blank'>this free MathML-to-LaTeX converter</a>.</b><br>
+        <!-- 2. <b>Go to <a href='https://www.latex4technics.com/mathml-to-latex' target='_blank'>this free MathML-to-LaTeX converter</a>.</b><br>
         3. Paste your formula into the converter and copy the LaTeX result.<br>
         4. Click the <b>Insert Math Formula</b> button below the field you want to add math to.<br>
-        5. Paste the LaTeX code into the dialog and click OK.<br>
+        5. Paste the LaTeX code into the dialog and click OK.<br> -->
         <b>Do not paste formulas as images from Word or PDF. Always use the MathJax button and LaTeX code.</b>
     </div>
     <form method="post">
