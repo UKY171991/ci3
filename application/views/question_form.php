@@ -10,21 +10,20 @@
     <h2><?php echo isset($question) ? 'Edit' : 'Add'; ?> Question</h2>
     <div style="color:#007bff;font-size:14px;margin-bottom:10px;">
         <b>How to add math formulas:</b><br>
-        1. Click the <b>MathJax (∑)</b> button in the editor toolbar.<br>
-        2. Enter your formula in LaTeX, e.g. <code>\sqrt{2}</code> for √2.<br>
-        3. For multiple options, use:<br>
+        1. Click the <b>Insert Option Template</b> button below to add a LaTeX math block for options.<br>
+        2. Or, click the <b>MathJax (∑)</b> button in the editor toolbar to add your own formula.<br>
+        3. <b>Do not paste formulas as images from Word or PDF. Always use the MathJax button and LaTeX code.</b><br>
         <pre style="background:#f4f6f8;padding:8px;border-radius:6px;">(1)\ 3\\sqrt{2} \\
 (2)\ 7\\sqrt{2} \\
 (3)\ \sqrt{2} \\
 (4)\ 5\\sqrt{2}</pre>
         <button type="button" onclick="insertLatexTemplate()" style="margin-top:5px;padding:4px 10px;border-radius:4px;border:1px solid #007bff;background:#eaf4ff;color:#007bff;cursor:pointer;">Insert Option Template</button>
-        <br><b>Do not paste formulas as images from Word or PDF. Always use the MathJax button and LaTeX code.</b>
     </div>
-    <form method="post">
+    <form method="post" onsubmit="return validateMathJaxBlocks();">
         <label>Question:</label><br>
-        <textarea name="question" id="question" required><?php echo isset($question) ? htmlspecialchars($question->question) : ''; ?></textarea><br>
+        <textarea name="question" id="question" required placeholder="Type your question here. Use the MathJax button (∑) for math."><?php echo isset($question) ? htmlspecialchars($question->question) : ''; ?></textarea><br>
         <label>Answer:</label><br>
-        <textarea name="answer" id="answer" required><?php echo isset($question) ? htmlspecialchars($question->answer) : ''; ?></textarea><br><br>
+        <textarea name="answer" id="answer" required placeholder="Type your answer here. Use the MathJax button (∑) for math."><?php echo isset($question) ? htmlspecialchars($question->answer) : ''; ?></textarea><br><br>
         <button type="submit">Save</button>
         <a href="<?php echo site_url('admin/dashboard'); ?>">Cancel</a>
     </form>
@@ -45,18 +44,29 @@
                 ['Bold', 'Italic', 'Underline', '-', 'Mathjax', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
             ]
         });
+        // Helper to open MathJax dialog and insert template
         function insertLatexTemplate() {
             var template = '(1)\\ 3\\sqrt{2} \\\\\
-(2)\\ 7\\sqrt{2} \\\\\
-(3)\\ \\sqrt{2} \\\\\
-(4)\\ 5\\sqrt{2}';
-            if (CKEDITOR.instances['question'].focusManager.hasFocus) {
-                CKEDITOR.instances['question'].insertText(template);
-            } else if (CKEDITOR.instances['answer'].focusManager.hasFocus) {
-                CKEDITOR.instances['answer'].insertText(template);
-            } else {
-                CKEDITOR.instances['question'].insertText(template);
+(2)\\ 7\\sqrt{2} \\\\n(3)\\ \\sqrt{2} \\\\n(4)\\ 5\\sqrt{2}';
+            var editor = CKEDITOR.instances['question'];
+            editor.execCommand('mathjax');
+            setTimeout(function() {
+                var dialog = CKEDITOR.dialog.getCurrent();
+                if(dialog) {
+                    dialog.setValueOf('info', 'mathInput', template);
+                }
+            }, 300);
+        }
+        // Prevent form submit if no MathJax block is present
+        function validateMathJaxBlocks() {
+            var qData = CKEDITOR.instances['question'].getData();
+            var aData = CKEDITOR.instances['answer'].getData();
+            var mathBlockRegex = /<span class="math-tex">|<script type="math\/tex/i;
+            if (!mathBlockRegex.test(qData) && !mathBlockRegex.test(aData)) {
+                alert('Please use the MathJax (∑) button to add at least one math formula.');
+                return false;
             }
+            return true;
         }
     </script>
 </body>
