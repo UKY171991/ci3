@@ -3,6 +3,8 @@
 <head>
     <title>Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
             background: #f4f6f8;
@@ -117,5 +119,11 @@
             <?php endforeach; ?>
         </table>
     </div>
+    <script>
+        // Re-render MathJax after page load (for dynamic content)
+        if (window.MathJax) {
+            MathJax.typesetPromise();
+        }
+    </script>
 </body>
 </html>
