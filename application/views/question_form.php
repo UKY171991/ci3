@@ -4,7 +4,7 @@
     <title>Question Form</title>
     <script src="https://cdn.ckeditor.com/4.21.0/full-all/ckeditor.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
     <h2><?php echo isset($question) ? 'Edit' : 'Add'; ?> Question</h2>
@@ -30,22 +30,22 @@
     <script>
         CKEDITOR.replace('question', {
             extraPlugins: 'mathjax,image2,clipboard',
-            mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+            mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML',
             height: 150,
             toolbar: [
                 ['Bold', 'Italic', 'Underline', '-', 'Mathjax', 'Image', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
             ],
-            filebrowserUploadUrl: '/uploader/upload.php', // You need to implement this endpoint for real uploads
+            filebrowserUploadUrl: '/uploader/upload.php',
             filebrowserUploadMethod: 'form'
         });
         CKEDITOR.replace('answer', {
             extraPlugins: 'mathjax,image2,clipboard',
-            mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+            mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML',
             height: 150,
             toolbar: [
                 ['Bold', 'Italic', 'Underline', '-', 'Mathjax', 'Image', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink', '-', 'RemoveFormat', 'Source']
             ],
-            filebrowserUploadUrl: '/uploader/upload.php', // You need to implement this endpoint for real uploads
+            filebrowserUploadUrl: '/uploader/upload.php',
             filebrowserUploadMethod: 'form'
         });
         function openMathJaxDialog(editorId) {
